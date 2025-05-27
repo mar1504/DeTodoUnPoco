@@ -1,0 +1,152 @@
+<?php
+include 'conexion.php';
+
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>Publicar Anuncio</title>
+    <style>
+        /* (Tu CSS igual que antes) */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #4e54c8, #8f94fb);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+        }
+        .formulario {
+            background-color: #fff;
+            padding: 30px 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(78, 84, 200, 0.3);
+            width: 100%;
+            max-width: 450px;
+            transition: box-shadow 0.3s ease;
+            margin: 20px auto;
+        }
+        .formulario:hover {
+            box-shadow: 0 10px 30px rgba(78, 84, 200, 0.5);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: #2c3e50;
+            letter-spacing: 1px;
+        }
+        label {
+            display: block;
+            font-weight: 600;
+            margin-top: 15px;
+            margin-bottom: 6px;
+            color: #34495e;
+        }
+        input[type="text"],
+        input[type="number"],
+        input[type="file"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1.8px solid #bdc3c7;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 400;
+            color: #2c3e50;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        textarea:focus,
+        select:focus,
+        input[type="file"]:focus {
+            border-color: #6a11cb;
+            box-shadow: 0 0 8px rgba(106, 17, 203, 0.6);
+            outline: none;
+        }
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+            font-family: inherit;
+        }
+        input[type="submit"] {
+            margin-top: 30px;
+            background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+            border: none;
+            color: #ecf0f1;
+            padding: 12px 0;
+            font-size: 1.05rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.4s ease, box-shadow 0.3s ease;
+            letter-spacing: 0.8px;
+            box-shadow: 0 5px 13px rgba(101, 67, 234, 0.4);
+        }
+        input[type="submit"]:hover {
+            background: linear-gradient(90deg, #2575fc 0%, #6a11cb 100%);
+            box-shadow: 0 7px 18px rgba(101, 67, 234, 0.6);
+        }
+        .nota {
+            font-size: 0.8rem;
+            color: #7f8c8d;
+            margin-top: 5px;
+            font-style: italic;
+        }
+        @media (max-width: 480px) {
+            .formulario {
+                padding: 25px 20px;
+                max-width: 100%;
+                margin: 10px auto;
+            }
+            h2 {
+                font-size: 1.5rem;
+            }
+            input[type="submit"] {
+                font-size: 1rem;
+                padding: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<form action="procesar_publicacion.html" method="post" enctype="multipart/form-data" class="formulario">
+    <h2>Publicar Anuncio</h2>
+
+    <label for="titulo">Título</label>
+    <input type="text" name="titulo" id="titulo" required maxlength="255" placeholder="Ejemplo: Bicicleta de montaña casi nueva" />
+
+    <label for="descripcion">Descripción</label>
+    <textarea name="descripcion" id="descripcion" required placeholder="Ejemplo: Bicicleta usada solo 3 meses, en perfecto estado, con cambios y frenos nuevos."></textarea>
+
+    <label for="precio">Precio (MXN)</label>
+    <input type="number" name="precio" id="precio" step="0.01" min="0" required placeholder="Ejemplo: 2500.00" />
+
+    <label for="categoria">Categoría</label>
+    <select name="categoria" id="categoria" required>
+        <option value="" disabled selected>Selecciona una categoría</option>
+        <?php foreach ($categorias as $cat): ?>
+            <option value="<?= htmlspecialchars($cat['id']) ?>"><?= htmlspecialchars($cat['nombre']) ?></option>
+        <?php endforeach; ?>
+    </select>
+
+    <label for="fotos">Fotos (puedes subir varias)</label>
+    <input type="file" name="fotos[]" id="fotos" accept="image/*" multiple required />
+    <p class="nota">Formatos permitidos: jpg, jpeg, png, gif, webp, jfif, bmp. Puedes subir varias imágenes.</p>
+
+    <input type="submit" value="Publicar" />
+</form>
+
+</body>
+</html>  

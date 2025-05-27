@@ -1,0 +1,78 @@
+<?php
+// iniciar_sesion.html
+?>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<title>Iniciar Sesión</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+  }
+  .login-form {
+    background: rgba(255,255,255,0.9);
+    padding: 2rem;
+    border-radius: 15px;
+    width: 320px;
+    color: #333;
+  }
+  h2 {
+    margin-bottom: 1rem;
+    text-align: center;
+    color: #4b0082;
+  }
+  label {
+    display: block;
+    margin-top: 1rem;
+    font-weight: bold;
+  }
+  input[type="email"],
+  input[type="password"] {
+    width: 100%;
+    padding: 0.6rem;
+    margin-top: 0.4rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+  }
+  input[type="submit"] {
+    margin-top: 1.5rem;
+    width: 100%;
+    padding: 0.8rem;
+    background-color: #2575fc;
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  input[type="submit"]:hover {
+    background-color: #1a52c0;
+  }
+</style>
+</head>
+<body>
+
+<div class="login-form">
+  <h2>Iniciar Sesión</h2>
+  <form action="procesar_registro1.html" method="POST">
+    <label for="correo">Correo:</label>
+    <input type="email" id="correo" name="correo" required>
+
+    <label for="contrasena">Contraseña:</label>
+    <input type="password" id="contrasena" name="contrasena" required>
+
+    <input type="submit" value="Entrar">
+  </form>
+</div>
+
+</body>
+</html>

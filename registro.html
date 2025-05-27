@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<title>Registro de Usuario</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #2c3e50;
+}
+
+form {
+    background-color: #fff;
+    padding: 40px 35px;
+    border-radius: 16px;
+    box-shadow: 0 15px 35px rgba(102, 126, 234, 0.3);
+    max-width: 400px;
+    width: 100%;
+    animation: fadeInUp 0.7s ease forwards;
+}
+
+h2 {
+    margin: 0 0 30px;
+    font-weight: 600;
+    font-size: 28px;
+    text-align: center;
+    color: #3a3f58;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #4a4e69;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px 14px;
+    margin-bottom: 22px;
+    border: 1.8px solid #d1d5db;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+    color: #333;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #667eea;
+    outline: none;
+    box-shadow: 0 0 8px rgba(102, 126, 234, 0.5);
+}
+
+input[type="submit"] {
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    font-weight: 700;
+    border: none;
+    border-radius: 12px;
+    padding: 14px;
+    width: 100%;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+}
+
+input[type="submit"]:hover {
+    background: linear-gradient(90deg, #5a6bd6 0%, #643d92 100%);
+    box-shadow: 0 10px 25px rgba(101, 107, 214, 0.6);
+}
+
+.iniciar-sesion-btn {
+    display: inline-block;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 12px 28px;
+    border-radius: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+    transition: transform 0.2s ease, background 0.3s ease;
+}
+
+.iniciar-sesion-btn:hover {
+    background: linear-gradient(90deg, #5a6bd6 0%, #643d92 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(101, 107, 214, 0.6);
+}
+
+p {
+    text-align: center;
+    margin-top: 18px;
+    font-size: 14px;
+    color: #6b7280;
+}
+
+a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #764ba2;
+    text-decoration: underline;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Estilo para mensaje de error */
+.error-message {
+    color: #e74c3c;
+    font-size: 13px;
+    margin-top: -18px;
+    margin-bottom: 18px;
+    font-weight: 600;
+}
+</style>
+</head>
+<body>
+
+<form id="registroForm" action="procesar_registro.php" method="POST" novalidate>
+    <h2>Crear Cuenta</h2>
+
+    <label for="nombre">Nombre completo</label>
+    <input type="text" name="nombre" id="nombre" placeholder="Tu nombre completo" required autocomplete="name" maxlength="50" />
+    <div id="error-nombre" class="error-message" style="display:none;">Por favor ingresa un nombre válido (solo letras y espacios).</div>
+
+    <label for="correo">Correo electrónico</label>
+    <input type="email" name="correo" id="correo" placeholder="ejemplo@correo.com" required autocomplete="email" maxlength="100" />
+    <div id="error-correo" class="error-message" style="display:none;">Correo inválido.</div>
+
+    <label for="contrasena">Contraseña</label>
+    <input type="password" name="contrasena" id="contrasena" placeholder="Crea una contraseña segura" required autocomplete="new-password" minlength="6" maxlength="64" />
+    <div id="error-contrasena" class="error-message" style="display:none;">La contraseña debe tener al menos 6 caracteres.</div>
+
+    <label for="telefono">Teléfono (opcional)</label>
+    <input type="text" name="telefono" id="telefono" placeholder="Número de teléfono" pattern="^\+?[0-9\s\-]{7,15}$" autocomplete="tel" maxlength="15" />
+    <div id="error-telefono" class="error-message" style="display:none;">Teléfono inválido.</div>
+
+    <input type="submit" value="Registrarse" />
+
+    <!-- Botón para iniciar sesión -->
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="iniciar_sesion.php" class="iniciar-sesion-btn">¿Ya tienes cuenta? Iniciar sesión</a>
+    </div>
+
+    <p><a href="recuperar_contrasena.html">¿Olvidaste tu contraseña?</a></p>
+</form>
+
+<script>
+document.getElementById('registroForm').addEventListener('submit', function(e) {
+    let valido = true;
+
+    ['nombre', 'correo', 'contrasena', 'telefono'].forEach(id => {
+        document.getElementById('error-' + id).style.display = 'none';
+    });
+
+    const nombre = document.getElementById('nombre').value.trim();
+    const nombreRegex = /^[a-zA-ZÀ-ÿ\s]+$/u;
+    if (!nombre || !nombreRegex.test(nombre)) {
+        document.getElementById('error-nombre').style.display = 'block';
+        valido = false;
+    }
+
+    const correo = document.getElementById('correo').value.trim();
+    const correoRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!correoRegex.test(correo)) {
+        document.getElementById('error-correo').style.display = 'block';
+        valido = false;
+    }
+
+    const contrasena = document.getElementById('contrasena').value;
+    if (contrasena.length < 6) {
+        document.getElementById('error-contrasena').style.display = 'block';
+        valido = false;
+    }
+
+    const telefono = document.getElementById('telefono').value.trim();
+    if (telefono) {
+        const telefonoRegex = /^\+?[0-9\s\-]{7,15}$/;
+        if (!telefonoRegex.test(telefono)) {
+            document.getElementById('error-telefono').style.display = 'block';
+            valido = false;
+        }
+    }
+
+    if (!valido) {
+        e.preventDefault();
+    }
+});
+</script>
+
+</body>
+</html>
+
+
+

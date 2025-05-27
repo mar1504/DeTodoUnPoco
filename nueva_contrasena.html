@@ -1,0 +1,111 @@
+<?php
+$correo = $_GET['correo'] ?? '';
+?>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Nueva Contraseña</title>
+<style>
+  /* Reset básico */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #6a11cb, #2575fc); /* morado-azul */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #fff;
+  }
+
+  .formulario {
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 2.5rem 2rem;
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    color: #333;
+  }
+
+  h2 {
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: #4b0082; /* color morado oscuro */
+  }
+
+  label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    text-align: left;
+  }
+
+  input[type="password"] {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    transition: border-color 0.3s ease;
+  }
+  input[type="password"]:focus {
+    border-color: #6a11cb; /* morado */
+    outline: none;
+    box-shadow: 0 0 8px #6a11cbaa;
+  }
+
+  input[type="submit"] {
+    margin-top: 1.5rem;
+    width: 100%;
+    padding: 0.85rem;
+    background-color: #2575fc; /* azul */
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.25s ease;
+  }
+  input[type="submit"]:hover,
+  input[type="submit"]:focus {
+    background-color: #1a52c0;
+    outline: none;
+  }
+
+  @media (max-width: 480px) {
+    .formulario {
+      padding: 2rem 1.5rem;
+      max-width: 90vw;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="formulario" role="main" aria-labelledby="titulo-nueva-contrasena">
+  <h2 id="titulo-nueva-contrasena">Establecer Nueva Contraseña</h2>
+
+  <form action="guardar_nueva_contrasena.php" method="POST" novalidate>
+    <input type="hidden" name="correo" value="<?php echo htmlspecialchars($correo); ?>">
+
+    <label for="nueva_contrasena">Nueva contraseña:</label>
+    <input type="password" id="nueva_contrasena" name="nueva_contrasena" required minlength="6" placeholder="Mínimo 6 caracteres">
+
+    <input type="submit" value="Actualizar contraseña">
+  </form>
+</div>
+
+</body>
+</html>

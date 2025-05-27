@@ -1,1 +1,369 @@
+ <!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Inicio - De Todo Un Poco</title>
 
+  <!-- Tipografía tipo Vogue (elegante) -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
+  <!-- Font Awesome para iconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+
+
+   <style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: linear-gradient(to right, #ff0080, #7928ca);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+  h1, h2, h3, h4, h5, h6 {
+    color: #ffffff;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+  }
+
+  h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover {
+    color: #00f0ff;
+    text-shadow: 0 0 15px #0ff, 0 0 30px #0ff;
+  }
+/* Tamaño específico para el h1 */
+h1 {
+  font-size: 5rem;
+font-style: italic;  /* cursiva */
+  animation: floatTitle 3s ease-in-out infinite;
+}
+
+@keyframes floatTitle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+.navbar a {
+  color: #ff61a6;
+  margin: 0 20px;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-shadow: 0 0 5px #ff61a6;
+  transition: all 0.3s ease;
+
+  /* borde tipo cuadro */
+  border: 2px solid #ff00cc;
+  border-radius: 10px;
+  padding: 8px 20px; /* espacio interno para que no quede muy pegado */
+}
+    
+  .navbar a {
+  color: #00c3ff;
+  margin: 0 10px;
+  text-decoration: none;
+  font-size: 1.05rem;
+  font-weight: 500;
+  padding: 12px 35px;
+  border-radius: 30px;
+  background-color: #ffffff;
+  border: 1px solid #00c3ff;
+  box-shadow: 0 0 8px rgba(0, 195, 255, 0.4);
+  transition: 0.3s ease;
+}
+
+.navbar a:hover {
+  background-color: #00c3ff;
+  color: white;
+  box-shadow: 0 0 15px #00c3ff;
+}
+
+  .hero {
+    flex: 1;
+    padding: 80px 20px;
+    text-align: center;
+    backdrop-filter: blur(15px);
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    margin: 40px;
+    box-shadow: 0 0 40px #ff00ccaa;
+    position: relative;
+    z-index: 1;
+  }
+
+  .animated-logo {
+    width: 200px;
+    margin-bottom: 30px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    box-shadow: 0 0 20px #ff00cc, 0 0 40px #00ffff;
+    animation: pulseGlow 3s infinite ease-in-out;
+    transition: transform 0.3s;
+  }
+
+  .animated-logo:hover {
+    transform: scale(1.1) rotate(5deg);
+    filter: drop-shadow(0 0 25px #00f0ff);
+  }
+
+  @keyframes moveWaves {
+  0% { background-position: 0 0; }
+  100% { background-position: 100% 0; }
+}
+
+  p {
+    color: #ffcaf7;
+    font-size: 1.4rem;
+    max-width: 700px;
+    margin: 20px auto;
+    text-shadow: 0 0 8px #ff61a6;
+  }
+
+  .buttons a {
+    display: inline-block;
+    background: linear-gradient(135deg, #ff00cc, #00ffff);
+    color: #fff;
+    padding: 15px 35px;
+    margin: 10px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 0 20px #ff00cc;
+    transition: all 0.4s ease;
+  }
+
+  .buttons a:hover {
+    background: linear-gradient(135deg, #00ffff, #ff00cc);
+    box-shadow: 0 0 30px #00ffff;
+    transform: scale(1.1);
+  }
+
+  .categories {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin: 40px 0;
+  }
+
+  .category {
+    background:linear-gradient(135deg, #ff00cc, #00ffff);    
+color: #e0e0e0;
+    padding: 25px 15px;
+    border-radius: 20px;
+    width: 140px;
+    text-align: center;
+    box-shadow: 0 0 20px #00ffff80;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+  }
+
+  .category:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 35px #00ffff;
+    color: #fff;
+  }
+
+.category i {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  color: #ffffff;
+  text-shadow: 0 0 5px #ffffff;
+  transition: color 0.3s, text-shadow 0.3s;
+}
+
+.category:hover i {
+  color: #00ffff;
+  text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+}
+
+
+  .footer {
+    background-color: #0a0014;
+    color: #ff61a6;
+    text-align: center;
+    padding: 20px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    box-shadow: inset 0 1px 4px #ff00cc;
+  }
+
+  .circle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(0, 255, 255, 0.2);
+    box-shadow: 0 0 30px #00ffffaa;
+    animation: floatCircle linear infinite;
+    z-index: 0;
+  }
+
+  @keyframes floatCircle {
+    from {
+      transform: translateY(100vh);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(-10vh);
+      opacity: 1;
+    }
+  }
+
+  .circle:nth-child(1) {
+    width: 120px;
+    height: 120px;
+    left: 5%;
+    animation-duration: 20s;
+  }
+
+  .circle:nth-child(2) {
+    width: 80px;
+    height: 80px;
+    left: 25%;
+    animation-duration: 24s;
+  }
+
+  .circle:nth-child(3) {
+    width: 150px;
+    height: 150px;
+    left: 60%;
+    animation-duration: 28s;
+  }
+
+  .circle:nth-child(4) {
+    width: 100px;
+    height: 100px;
+    left: 85%;
+    animation-duration: 22s;
+  }
+</style>
+
+</head>
+<body>
+ 
+  <div class="animated-bg">
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+  </div>
+
+  <!-- Animación de círculos -->
+  <div class="animated-bg" id="animated-bg"></div>
+
+  <!-- Menú de navegación -->
+  <div class="navbar">
+    <a href="registro.html">Registrarse</a>
+    <a href="publicar.html">Publicar</a>
+    <a href="explorar_anuncios.html">Comprar</a>
+  </div>
+
+  <!-- Sección principal -->
+  <div class="hero">
+    <img src="LOGO.png" alt="Logo De Todo Un Poco" class="logo animated-logo">
+    <h1>¡Bienvenido a De Todo Un Poco!</h1>
+    <p>Compra, vende y encuentra todo lo que necesitas en un solo lugar fácil, rápido y seguro.</p>
+
+    <!-- Botones -->
+    <div class="buttons">
+      <a href="registro.html">Crear Cuenta</a>
+      <a href="publicar.html">Publicar Anuncio</a>
+      <a href="explorar_anuncios.html">Comprar</a>
+    </div>
+<div class="categories">
+  <div class="category">
+    <i class="fas fa-home"></i>
+    <h3>Hogar</h3>
+    <span class="tooltip">Todo para tu casa, decoración y confort</span>
+  </div>
+  <div class="category">
+    <i class="fas fa-tools"></i>
+    <h3>Servicio</h3>
+    <span class="tooltip">Contrata servicios como plomería, electricidad y más</span>
+  </div>
+  <div class="category">
+    <i class="fas fa-laptop"></i>
+    <h3>Tecnología</h3>
+    <span class="tooltip">Encuentra gadgets, computadoras y lo último en tech</span>
+  </div>
+  <div class="category">
+    <i class="fas fa-tshirt"></i>
+    <h3>Moda</h3>
+    <span class="tooltip">Ropa, calzado y accesorios para todos los estilos</span>
+  </div>
+  <div class="category">
+    <i class="fas fa-magic"></i>
+    <h3>Belleza</h3>
+    <span class="tooltip">Maquillaje, cuidado de la piel y productos de belleza</span>
+  </div>
+  <div class="category">
+    <i class="fas fa-utensils"></i>
+    <h3>Restaurantes</h3>
+    <span class="tooltip">Descubre dónde comer bien cerca de ti</span>
+  </div>
+  <div class="category">
+    <i class="fas fa-gamepad"></i>
+    <h3>Juguetes</h3>
+    <span class="tooltip">Juguetes y diversión para niños y niñas</span>
+  </div>
+  <div class="category">
+    <i class="fas fa-heartbeat"></i>
+    <h3>Salud</h3>
+    <span class="tooltip">Farmacias, servicios médicos y bienestar</span>
+  </div>
+</div>
+    
+  </div>
+<!-- Video publicitario de YouTube con autoplay y sin sonido-->
+<div style="margin: 20px 0; text-align: center;">
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/7WmfEBWA4Ro?autoplay=1&mute=1" 
+      title="Anuncio de De Todo Un Poco" frameborder="0" 
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+      allowfullscreen>
+  </iframe>
+</div>
+  <footer class="footer">
+    © 2025 "De Todo Un Poco". Todos los derechos reservados ATTE.DDM
+  </footer>
+
+  <script>
+    // Quitar pantalla de carga tras 2 segundos y agregar círculos animados
+    window.addEventListener('load', () => {
+      const loader = document.getElementById('loader');
+      setTimeout(() => {
+        loader.classList.add('fade-out');
+      }, 1500);
+
+      // Crear círculos animados
+      const animatedBg = document.getElementById('animated-bg');
+      const colors = ['#3b82f6', '#3b82f6', '#3b82f6', '#3b82f6'];
+
+      for(let i = 0; i < 15; i++) {
+        const circle = document.createElement('div');
+        circle.classList.add('circle');
+        circle.style.width = `${40 + Math.random()*60}px`;
+        circle.style.height = circle.style.width;
+        circle.style.left = `${Math.random() * 100}vw`;
+        circle.style.animationDuration = `${10 + Math.random()*15}s`;
+        circle.style.animationDelay = `${-Math.random()*15}s`;
+        circle.style.background = colors[Math.floor(Math.random() * colors.length)];
+        circle.style.opacity = 0.15 + Math.random() * 0.3;
+        animatedBg.appendChild(circle);
+      }
+    });
+  </script>
+
+</body>
+</html>

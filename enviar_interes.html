@@ -1,0 +1,88 @@
+<?php
+si ($_SERVER['MÉTODO_DE_SECUENCIA'] === 'POST') {
+requiere 'conexion.php';
+
+$anuncio = htmlspecialchars($_POST['anuncio'] ?? '');
+$nombre = htmlspecialchars($_POST['nombre'] ?? '');
+$correo electrónico = htmlspecialchars($_POST['correo electrónico'] ?? '');
+$mensaje = htmlspecialchars($_POST['mensaje'] ?? '');
+
+intentar {
+$stmt = $pdo->prepare("INSERT INTO mensajes_interes (anuncio, nombre, email, mensaje) VALUES (?, ?, ?, ?)");
+$stmt->execute([$anuncio, $nombre, $email, $mensaje]);
+
+// Mostrar página de éxito
+?>
+<!DOCTYPE html>
+<html lang="es">
+<cabeza>
+<meta charset="UTF-8">
+<title>Interés registrado</title>
+<estilo>
+cuerpo {
+margen: 0;
+relleno: 0;
+familia de fuentes: 'Segoe UI', sans-serif;
+fondo: gradiente lineal (abajo a la derecha, #6b73ff, #000dff);
+pantalla: flex;
+alinear-elementos: centro;
+justificar-contenido: centro;
+altura: 100vh;
+}
+
+.tarjeta {
+fondo: #fff;
+relleno: 40px;
+radio del borde: 12px;
+caja-sombra: 0 10px 25px rgba(0,0,0,0.1);
+alinear texto: centro;
+}
+
+h2 {
+color: #4b3ecf;
+margen inferior: 30px;
+}
+
+.botón {
+pantalla: bloque;
+ancho: 200px;
+margen: 10px automático;
+relleno: 12px 20px;
+fondo: gradiente lineal (a la derecha, #7b52ff, #3f79ff);
+color: #fff;
+peso de fuente: negrita;
+borde: ninguno;
+radio del borde: 30px;
+decoración de texto: ninguna;
+caja-sombra: 0 6px 15px rgba(0, 0, 0, 0.2);
+transición: transformación 0,2 s, caja-sombra 0,2 s;
+}
+
+.botón:hover {
+transformar: translateY(-2px);
+caja-sombra: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.emoji {
+margen derecho: 6px;
+}
+</estilo>
+</cabeza>
+<cuerpo>
+<div class="tarjeta">
+<h2>¡Tu interés ha sido enviado con éxito! 💌</h2>
+<a class="boton" href="explorar_anuncios.php"><span class="emoji">🔍</span> Ver más anuncios</a>
+<a class="boton" href="inicio.php"><span class="emoji">🏠</span> Volver al inicio</a>
+</div>
+</cuerpo>
+</html>
+<?php
+
+} captura (PDOException $e) {
+código_de_respuesta_http(500);
+echo "Error al guardar: ". $e->getMessage();
+}
+} demás {
+http_response_code(405); // Método no permitido
+}
+?>
