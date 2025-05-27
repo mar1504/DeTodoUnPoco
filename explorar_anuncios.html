@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Explorar Anuncios</title>
-  <link rel="stylesheet" href="estilos.css"> <!-- Asegúrate de tener estilos -->
+  <link rel="stylesheet" href="estilos.css">
   <style>
     body {
       background: linear-gradient(to bottom, #2c3e50, #4b6cb7);
@@ -52,7 +52,7 @@
 <body>
 
   <div class="logo">
-    <img src="tu-logo.png" alt="Logo" width="150"> <!-- Asegúrate que el logo esté en tu carpeta -->
+    <img src="LOGO.png" alt="Logo" width="150">
     <p>"De Todo Un Poco"</p>
   </div>
 
@@ -60,49 +60,28 @@
     <input type="text" id="buscar" placeholder="Buscar...">
     <select id="categorias">
       <option>Todas las categorías</option>
-      <option>Electrónica</option>
-      <option>Ropa</option>
+      <option>Vehiculo</option>
+      <option>Tecnologia</option>
       <option>Hogar</option>
+      <option>Belleza y moda</option>
+      <option>Salud</option>
+      <option>Restaurante</option>
+      <option>Servicios</option>
+      <option>Juguetes</option>
     </select>
     <button class="boton" onclick="mostrarAnuncios()">Buscar</button>
   </div>
 
-  <div id="contenedor-anuncios"></div>
+  <div id="contenedor-anuncios">
+    <p>No hay anuncios disponibles por ahora.</p>
+  </div>
 
   <script>
-    const anuncios = [
-      {
-        titulo: "Laptop Lenovo",
-        descripcion: "Laptop en excelente estado, 8GB RAM, SSD 256GB.",
-        precio: 250,
-        imagen: "img/laptop.jpg"
-      },
-      {
-        titulo: "Chaqueta de cuero",
-        descripcion: "Chaqueta talla M, poco uso.",
-        precio: 40,
-        imagen: "img/chaqueta.jpg"
-      }
-    ];
-
     function mostrarAnuncios() {
       const contenedor = document.getElementById("contenedor-anuncios");
-      contenedor.innerHTML = ""; // Limpiar contenido anterior
-
-      anuncios.forEach(anuncio => {
-        contenedor.innerHTML += `
-          <div class="anuncio">
-            <img src="${anuncio.imagen}" alt="Foto del anuncio">
-            <h3>${anuncio.titulo}</h3>
-            <p><strong>Descripción:</strong> ${anuncio.descripcion}</p>
-            <p><strong>Precio:</strong> $${anuncio.precio}</p>
-            <button class="boton">Estoy interesado</button>
-          </div>
-        `;
-      });
+      contenedor.innerHTML = `<p>No hay anuncios disponibles por ahora.</p>`;
     }
 
-    // Cargar anuncios al inicio
     window.onload = mostrarAnuncios;
   </script>
 
