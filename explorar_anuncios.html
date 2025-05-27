@@ -1,415 +1,110 @@
-<?php
-include 'conexion.html';
-
-$busqueda = '';
-$categoria_seleccionada = '';
-if (isset($_GET['q'])) {
-    $busqueda = trim($_GET['q']);
-}
-if (isset($_GET['categoria'])) {
-    $categoria_seleccionada = $_GET['categoria'];
-}
-
-    }
-}
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <title>Explorar Anuncios</title>
-
-    <!-- Swiper CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-
-    <style>
-        body {
-            margin: 0;
-            padding: 20px;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #4b6cb7, #182848);
-            color: #e0e0ff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            box-sizing: border-box;
-        }
-
-        .logo {
-            margin-top: 20px;
-            max-width: 200px;
-            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.7));
-        }
-
-        .busqueda-form {
-            margin: 30px 0;
-            width: 90%;
-            max-width: 600px;
-            display: flex;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            border-radius: 12px;
-            overflow: hidden;
-            background: rgba(255 255 255 / 0.1);
-            backdrop-filter: blur(8px);
-        }
-
-        .busqueda-form input[type="text"] {
-            flex: 1;
-            padding: 12px 16px;
-            border: none;
-            font-size: 16px;
-            color: #f0f0ff;
-            background: transparent;
-            outline-offset: 2px;
-        }
-
-        .busqueda-form input[type="text"]::placeholder {
-            color: #a0a0c0;
-        }
-
-    .busqueda-form select {
-    background: rgba(255, 255, 255, 0.1);
-    color: #ffffff;
-    border: none;
-    padding: 10px 14px;
-    font-size: 18px;
-    cursor: pointer;
-    outline: none;
-    appearance: none;
-    border-radius: 8px;
-    backdrop-filter: blur(5px);
-}
-
-.busqueda-form select option {
-    background: #2a2f6a;
-    color: #ffffff;
-    font-size: 16px;
-}
-
-        .busqueda-form button {
-            padding: 12px 30px;
-            border: none;
-            background: #7b52ff;
-            color: #f0f0ff;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .busqueda-form button:hover {
-            background: #5a36cc;
-            box-shadow: 0 0 10px #7b52ff;
-        }
-
-        .anuncios-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            width: 90%;
-            max-width: 1200px;
-            margin-bottom: 40px;
-        }
-
-        .anuncio {
-            background: rgba(75, 108, 183, 0.7);
-            border-radius: 16px;
-            padding: 20px;
-            box-shadow: 0 12px 35px rgba(31, 38, 135, 0.37);
-            text-align: center;
-            color: #e0e0ff;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .anuncio:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 50px rgba(123, 82, 255, 0.8);
-        }
-
-        .anuncio h3 {
-            margin: 15px 0 10px;
-            font-size: 1.5rem;
-            font-weight: 700;
-            text-shadow: 0 0 6px rgba(123, 82, 255, 0.8);
-        }
-
-        .anuncio p {
-            margin: 10px 0;
-            font-size: 1rem;
-            line-height: 1.4;
-            color: #d0d0ffcc;
-            flex-grow: 1;
-            overflow-wrap: break-word;
-        }
-
-        .anuncio p strong {
-            color: #d1c4ff;
-            font-size: 1.1rem;
-        }
-
-        .btn-interes {
-            margin-top: 15px;
-            padding: 12px 25px;
-            font-weight: 700;
-            font-size: 1rem;
-            color: #fff;
-            background-color: #7b52ff;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .btn-interes:hover {
-            background-color: #5a36cc;
-            box-shadow: 0 0 10px #7b52ff;
-        }
-
-        .swiper {
-            width: 100%;
-            height: 200px;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-            margin-bottom: 15px;
-        }
-
-        .swiper-slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 12px;
-            transition: transform 0.3s ease;
-        }
-
-        .swiper-slide img:hover {
-            transform: scale(1.05);
-        }
-
-        .sin-resultados {
-            text-align: center;
-            font-size: 1.3rem;
-            color: #bbbbee;
-            margin-top: 40px;
-            font-weight: 600;
-            text-shadow: 0 0 5px rgba(100, 100, 160, 0.6);
-        }
-
-        .modal {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0,0,0,0.7);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: #2a2f6a;
-            padding: 25px;
-            border-radius: 14px;
-            width: 90%;
-            max-width: 400px;
-            color: #e0e0ff;
-            box-shadow: 0 0 15px rgba(123,82,255,0.8);
-            position: relative;
-        }
-
-        .modal-content h2 {
-            margin-top: 0;
-            margin-bottom: 15px;
-        }
-
-        .modal-content label {
-            display: block;
-            margin-top: 10px;
-            margin-bottom: 6px;
-            font-weight: 600;
-        }
-
-        .modal-content input, .modal-content textarea {
-            width: 100%;
-            padding: 10px;
-            border-radius: 8px;
-            border: none;
-            font-size: 1rem;
-            resize: vertical;
-        }
-
-        .modal-content textarea {
-            min-height: 80px;
-        }
-
-        .modal-content button {
-            margin-top: 15px;
-            padding: 12px 20px;
-            font-weight: 700;
-            font-size: 1rem;
-            background: #7b52ff;
-            border: none;
-            border-radius: 8px;
-            color: white;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .modal-content button:hover {
-            background: #5a36cc;
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 10px;
-            right: 14px;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #ccc;
-        }
-
-        .modal-close:hover {
-            color: #fff;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Explorar Anuncios</title>
+  <link rel="stylesheet" href="estilos.css"> <!-- Asegúrate de tener estilos -->
+  <style>
+    body {
+      background: linear-gradient(to bottom, #2c3e50, #4b6cb7);
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    .logo {
+      margin-bottom: 20px;
+    }
+    .busqueda {
+      margin-bottom: 20px;
+    }
+    .anuncio {
+      background: #405caa;
+      margin: 20px auto;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px purple;
+      max-width: 600px;
+    }
+    .anuncio img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+    .boton {
+      background-color: #a95dff;
+      color: white;
+      padding: 10px 20px;
+      margin-top: 15px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    select, input[type="text"] {
+      padding: 8px;
+      border-radius: 5px;
+      border: none;
+      margin-right: 5px;
+    }
+  </style>
 </head>
 <body>
 
-    <img src="LOGO.png" alt="De Todo Un Poco" class="logo" />
+  <div class="logo">
+    <img src="tu-logo.png" alt="Logo" width="150"> <!-- Asegúrate que el logo esté en tu carpeta -->
+    <p>"De Todo Un Poco"</p>
+  </div>
 
-    <form class="busqueda-form" method="GET" action="explorar_anuncios.php" role="search" aria-label="Buscar anuncios">
-        <input type="text" name="q" placeholder="Buscar anuncios..." value="<?= htmlspecialchars($busqueda) ?>" aria-label="Campo de búsqueda" />
-        
-        <select name="categoria" aria-label="Filtrar por categoría">
-            <option value="">Todas las categorías</option>
-            <?php foreach ($categorias as $cat): ?>
-                <option value="<?= $cat['id'] ?>" <?= ($cat['id'] == $categoria_seleccionada) ? 'selected' : '' ?>>
-                    <?= htmlspecialchars($cat['nombre']) ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
-        
-        <button type="submit" aria-label="Botón de búsqueda">Buscar</button>
-    </form>
+  <div class="busqueda">
+    <input type="text" id="buscar" placeholder="Buscar...">
+    <select id="categorias">
+      <option>Todas las categorías</option>
+      <option>Electrónica</option>
+      <option>Ropa</option>
+      <option>Hogar</option>
+    </select>
+    <button class="boton" onclick="mostrarAnuncios()">Buscar</button>
+  </div>
 
-    <?php if ($anuncios): ?>
-    <div class="anuncios-container" role="list" aria-label="Lista de anuncios encontrados">
-        <?php foreach ($anuncios as $anuncio): ?>
-            <article class="anuncio" role="listitem" tabindex="0" aria-labelledby="titulo-<?= $anuncio['id'] ?>">
-                <?php if (!empty($fotos_por_anuncio[$anuncio['id']])): ?>
-                    <div class="swiper swiper-anuncio-<?= $anuncio['id'] ?>" aria-label="Galería de fotos del anuncio <?= htmlspecialchars($anuncio['titulo']) ?>">
-                        <div class="swiper-wrapper">
-                            <?php foreach ($fotos_por_anuncio[$anuncio['id']] as $foto_ruta): ?>
-                                <div class="swiper-slide">
-                                    <img src="<?= htmlspecialchars($foto_ruta) ?>" alt="Foto del anuncio <?= htmlspecialchars($anuncio['titulo']) ?>" loading="lazy" />
-                                </div>
-                            <?php endforeach; ?>
-                        </div>
-                        <div class="swiper-pagination"></div>
-                    </div>
-                <?php endif; ?>
+  <div id="contenedor-anuncios"></div>
 
-                <h3 id="titulo-<?= $anuncio['id'] ?>"><?= htmlspecialchars($anuncio['titulo']) ?></h3>
+  <script>
+    const anuncios = [
+      {
+        titulo: "Laptop Lenovo",
+        descripcion: "Laptop en excelente estado, 8GB RAM, SSD 256GB.",
+        precio: 250,
+        imagen: "img/laptop.jpg"
+      },
+      {
+        titulo: "Chaqueta de cuero",
+        descripcion: "Chaqueta talla M, poco uso.",
+        precio: 40,
+        imagen: "img/chaqueta.jpg"
+      }
+    ];
 
-                <p><strong>Descripción:</strong> <?= nl2br(htmlspecialchars($anuncio['descripcion'])) ?></p>
-                <p><strong>Precio:</strong> $<?= number_format($anuncio['precio'], 2) ?></p>
+    function mostrarAnuncios() {
+      const contenedor = document.getElementById("contenedor-anuncios");
+      contenedor.innerHTML = ""; // Limpiar contenido anterior
 
-                <button class="btn-interes" data-id="<?= $anuncio['id'] ?>" aria-haspopup="dialog" aria-controls="modal-contacto">Estoy interesado</button>
-            </article>
-        <?php endforeach; ?>
-    </div>
-    <?php else: ?>
-        <p class="sin-resultados" role="alert">No se encontraron anuncios con esos criterios.</p>
-    <?php endif; ?>
+      anuncios.forEach(anuncio => {
+        contenedor.innerHTML += `
+          <div class="anuncio">
+            <img src="${anuncio.imagen}" alt="Foto del anuncio">
+            <h3>${anuncio.titulo}</h3>
+            <p><strong>Descripción:</strong> ${anuncio.descripcion}</p>
+            <p><strong>Precio:</strong> $${anuncio.precio}</p>
+            <button class="boton">Estoy interesado</button>
+          </div>
+        `;
+      });
+    }
 
-    <!-- Modal de contacto -->
-    <div class="modal" id="modal-contacto" role="dialog" aria-modal="true" aria-labelledby="modal-titulo" aria-describedby="modal-descripcion">
-        <div class="modal-content">
-            <span class="modal-close" aria-label="Cerrar modal">&times;</span>
-            <h2 id="modal-titulo">Formulario de contacto</h2>
-            <p id="modal-descripcion">Rellena este formulario para expresar tu interés en el anuncio seleccionado.</p>
-            <form id="form-contacto" method="POST" action="procesar_contacto.html" novalidate>
-                <input type="hidden" name="id_anuncio" id="input-id-anuncio" value="" />
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" required autocomplete="name" />
-                <label for="email">Correo electrónico:</label>
-                <input type="email" id="email" name="email" required autocomplete="email" />
-                <label for="mensaje">Mensaje:</label>
-                <textarea id="mensaje" name="mensaje" required></textarea>
-                <button type="submit">Enviar</button>
-            </form>
-        </div>
-    </div>
+    // Cargar anuncios al inicio
+    window.onload = mostrarAnuncios;
+  </script>
 
-    <!-- Swiper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
-    <script>
-        // Inicializar Swiper para cada galería
-        document.querySelectorAll('.swiper').forEach(swiperEl => {
-            new Swiper(swiperEl, {
-                loop: true,
-                pagination: {
-                    el: swiperEl.querySelector('.swiper-pagination'),
-                    clickable: true,
-                },
-                keyboard: {
-                    enabled: true,
-                },
-                slidesPerView: 1,
-                spaceBetween: 10,
-                a11y: true,
-            });
-        });
-
-        // Modal contacto
-        const modal = document.getElementById('modal-contacto');
-        const btnsInteres = document.querySelectorAll('.btn-interes');
-        const modalClose = modal.querySelector('.modal-close');
-        const inputIdAnuncio = document.getElementById('input-id-anuncio');
-
-        btnsInteres.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const id = btn.getAttribute('data-id');
-                inputIdAnuncio.value = id;
-                modal.classList.add('active');
-                // Foco al primer input
-                modal.querySelector('#nombre').focus();
-            });
-        });
-
-        modalClose.addEventListener('click', () => {
-            modal.classList.remove('active');
-        });
-
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.classList.remove('active');
-            }
-        });
-
-        // Cerrar modal con ESC
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modal.classList.contains('active')) {
-                modal.classList.remove('active');
-            }
-        });
-    </script>
 </body>
 </html>
